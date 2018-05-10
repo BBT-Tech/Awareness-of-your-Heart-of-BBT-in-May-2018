@@ -20,5 +20,5 @@ $rand = rand(0, $stm->rowCount() - 1);
 exit (json_encode([
     "errcode" => 0,
     "errmsg" => "",
-    "text" => $stm->fetchAll(PDO::FETCH_COLUMN)[$rand]
+    "text" => $stm->fetchAll(PDO::FETCH_ASSOC)[$rand]
 ]));

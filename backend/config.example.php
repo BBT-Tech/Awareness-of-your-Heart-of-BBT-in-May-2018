@@ -8,5 +8,6 @@ $config =
     "table" => [
         "question" => "TABLE_QUESTION",
         "answer" => "TABLE_ANSWER"
-    ]
+    ],
+    "question_select_num" => 11
 ];
