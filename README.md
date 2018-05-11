@@ -35,10 +35,12 @@
             "errmsg": "",
             "question": [
                 {
+                    "id": 10,
                     "text": "问题1",
                     "click": 22
                 },
                 {
+                    "id": 6,
                     "text": "问题2",
                     "click": 78
                 }
@@ -71,6 +73,11 @@
                     <td>相关问题信息的数组。</td>
                 </tr>
                 <tr>
+                    <td>id</td>
+                    <td>int</td>
+                    <td>问题的索引。</td>
+                </tr>
+                <tr>
                     <td>text</td>
                     <td>string</td>
                     <td>问题的文本。</td>
@@ -86,6 +93,30 @@
 - 触发事件：`用户点击某一问题时`或`用户点击不满意时`
 - 接口地址：`/dulishuo/backend/get_answer.php`
 - 请求方法：`POST`
+- 请求参数：
+    - 示例：
+        ```json
+        {
+            "id": 6
+        }
+        ```
+    - 说明：
+        <table>
+            <thead>
+                <tr>
+                    <th>参数名称</th>
+                    <th>参数类型</th>
+                    <th>参数说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id</td>
+                    <td>int</td>
+                    <td>问题的索引。</td>
+                </tr>
+            </tbody>
+        </table>
 - 返回参数：
     - 示例：
         ```json

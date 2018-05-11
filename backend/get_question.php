@@ -11,7 +11,7 @@ if (!isset($_POST["data"])) {
 
 $type = json_decode($_POST["data"], true)["type"];
 
-if (!is_int($type) && $type > -1 && $type < 3) {
+if (!is_int($type) || $type < 0 || $type > 2) {
     exit (json_encode([
         "errcode" => 2,
         "errmsg" => "非法的数据"
@@ -31,25 +31,22 @@ $con->query("SET NAMES UTF8");
 $stm = $con->prepare("SELECT * FROM {$config["table"]["question"]} WHERE `type` = ?");
 $stm->execute([$type]);
 
-$question = [];
 $result = $stm->fetchAll(PDO::FETCH_ASSOC);
 $total = $stm->rowCount();
-$rest = $total % $config["question_select_num"];
-$rand = rand(0, $total - 1);
 
-for ($i = 1; $i <= $rest; $i++) {
-    $j = ($rand - $i + $total) % $total;
-    $question[] = [
-        "text" => $result[$j]["text"], 
-        "click" => $result[$j]["click"]
-    ];
+for ($i = 0; $i < $config["question_select_num"]; $i++) {
+    $rand = ((rand() % ($total - 1)) + $i + 1) % $total;
+    $j = $result[$rand];
+    $result[$rand] = $result[$i];
+    $result[$i] = $j;
 }
 
-for ($i = 0; $i < $total; $i += $config["question_select_num"]) {
-    $j = ($rand + $i + rand($i, $i + $config["question_select_num"] - 1)) % $total;
+$question = [];
+for ($i = 0; $i < $config["question_select_num"]; $i++) {
     $question[] = [
-        "text" => $result[$j]["text"], 
-        "click" => $result[$j]["click"]
+        "id" => $result[$i]["id"],
+        "text" => $result[$i]["text"], 
+        "click" => $result[$i]["click"]
     ];
 }
 
