@@ -113,7 +113,7 @@
                 <tr>
                     <td>id</td>
                     <td>int</td>
-                    <td>问题的索引。</td>
+                    <td>点击某一问题时为问题的索引；<br />点击不满意时为0。</td>
                 </tr>
             </tbody>
         </table>

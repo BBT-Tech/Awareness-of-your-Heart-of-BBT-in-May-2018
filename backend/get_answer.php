@@ -11,7 +11,7 @@ if (!isset($_POST["data"])) {
 
 $id = json_decode($_POST["data"], true)["id"];
 
-if (!is_int($id) || $id < 0) {
+if (!is_int($id) || $id < -1) {
     exit (json_encode([
         "errcode" => 2,
         "errmsg" => "非法的数据"
@@ -28,18 +28,20 @@ try {
 }
 $con->query("SET NAMES UTF8");
 
-$stm = $con->prepare("SELECT `id`, `click` FROM {$config["table"]["question"]} WHERE `id` = ?");
-$stm->execute([$id]);
-if ($stm->rowCount()) {
-    $click = $stm->fetch(PDO::FETCH_ASSOC)["click"] + 1;
-    $stm->closeCursor();
-    $stm = $con->prepare("UPDATE {$config["table"]["question"]} SET `click` = ? WHERE `id` = ?");
-    $stm->execute([$click, $id]);
-} else {
-    exit (json_encode([
-        "errcode" => 4,
-        "errmsg" => "问题索引不存在"
-    ]));
+if ($id !== 0) {
+    $stm = $con->prepare("SELECT `id`, `click` FROM {$config["table"]["question"]} WHERE `id` = ?");
+    $stm->execute([$id]);
+    if ($stm->rowCount()) {
+        $click = $stm->fetch(PDO::FETCH_ASSOC)["click"] + 1;
+        $stm->closeCursor();
+        $stm = $con->prepare("UPDATE {$config["table"]["question"]} SET `click` = ? WHERE `id` = ?");
+        $stm->execute([$click, $id]);
+    } else {
+        exit (json_encode([
+            "errcode" => 4,
+            "errmsg" => "问题索引不存在"
+        ]));
+    }
 }
 
 $stm = $con->prepare("SELECT `text` FROM {$config["table"]["answer"]}");
