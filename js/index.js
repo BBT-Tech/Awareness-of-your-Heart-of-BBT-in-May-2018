@@ -75,25 +75,21 @@ function getQuestion(qtype) {
                 window.location.hash = "#page3"; //
                 for (var i = 0; i <= 5; i++) {
                     var txt = questions[i].text;
+                    var clicks = questions[i].click;
                     var div = $("<div></div>").text(txt);
                     $(".question1").append(div);
-                    if (txt.length < 10) {
+                    if (txt.length < 11) {
                         var x1 = 12;
                         var y1 = 20;
                         var z1 = parseInt(Math.random() * (x1 - y1 + 1) + y1) + "px";
 
-                        var x2 = 25;
-                        var y2 = 30;
+                        var x2 = 20;
+                        var y2 = 35;
                         var z2 = parseInt(Math.random() * (x2 - y2 + 1) + y2) + "vw";
-
-                        var x3 = 1;
-                        var y3 = 8;
-                        var z3 = parseInt(Math.random() * (x2 - y2 + 1) + y2) * 100;
 
                         div.css({
                             "font-size": z1,
                             "margin-left": z2,
-                            "font-weight": z3,
                             "width": "50vw"
                         });
                     } else if (txt.length < 15) {
@@ -101,18 +97,13 @@ function getQuestion(qtype) {
                         var y1 = 20;
                         var z1 = parseInt(Math.random() * (x1 - y1 + 1) + y1) + "px";
 
-                        var x2 = 6;
+                        var x2 = 15;
                         var y2 = 25;
                         var z2 = parseInt(Math.random() * (x2 - y2 + 1) + y2) + "vw";
-
-                        var x3 = 1;
-                        var y3 = 8;
-                        var z3 = parseInt(Math.random() * (x2 - y2 + 1) + y2) * 100;
 
                         div.css({
                             "font-size": z1,
                             "margin-left": z2,
-                            "font-weight": z3,
                             "width": "60vw"
                         });
                     } else {
@@ -124,15 +115,29 @@ function getQuestion(qtype) {
                         var y2 = 9;
                         var z2 = parseInt(Math.random() * (x2 - y2 + 1) + y2) + "vw";
 
-                        var x3 = 1;
-                        var y3 = 4;
-                        var z3 = parseInt(Math.random() * (x2 - y2 + 1) + y2) * 100;
-
                         div.css({
                             "font-size": z1,
                             "margin-left": z2,
-                            "font-weight": z3,
                             "width": "75vw"
+                        });
+                    }
+
+                    if(clicks.length<=1){
+                        div.css({
+                            "font-weight": 100,
+                        });
+                    }else if(clicks.length<=2){
+                        div.css({
+                            "font-weight": 200,
+                        });
+                    }else if(clicks.length<=5){
+                        var z = clicks.length*100
+                        div.css({
+                            "font-weight": z,
+                        });
+                    }else{
+                        div.css({
+                            "font-weight": 600,
                         });
                     }
 
