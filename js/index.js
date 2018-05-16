@@ -82,24 +82,23 @@ function getQuestion(qtype) {
 
                     if (clicks <= 20) {
                         $div.css({
-                            "font-weight": 100,
+                            "opacity": 0.5,
                         });
                     } else if (clicks <= 100) {
                         $div.css({
-                            "font-weight": 200,
+                            "opacity": 0.6,
                         });
                     } else if (clicks <= 500) {
-                        var z = clicks;
                         $div.css({
-                            "font-weight": z,
+                            "opacity": 0.75,
                         });
                     } else if (clicks <= 1000) {
                         $div.css({
-                            "font-weight": 600,
+                            "opacity": 0.9,
                         });
                     } else {
                         $div.css({
-                            "font-weight": 800,
+                            "opacity": 1,
                         });
                     }
 
@@ -226,7 +225,7 @@ function drawEraser(loc) {
         var dx = lastPoint.x - loc.x,
             dy = lastPoint.y - loc.y;
         var dxp = dy * eraser / Math.sqrt(dx * dx + dy * dy),
-            dyp = - dx * eraser / Math.sqrt(dx * dx + dy * dy);
+            dyp = -dx * eraser / Math.sqrt(dx * dx + dy * dy);
         context.save();
         context.beginPath();
         context.strokeStyle = "rgba(0, 0, 0, 0)";
