@@ -197,6 +197,7 @@ $("#no").click(function () {
 var canvas = document.getElementById("canvas"),
     context = canvas.getContext("2d"),
     eraser = 35,
+    lastPoint,
     img = new Image();
 
 img.src = "./res/page4/cover.png";
@@ -221,6 +222,24 @@ function windowToCanvas(e) {
 }
 
 function drawEraser(loc) {
+    if (dragging) {
+        var dx = lastPoint.x - loc.x,
+            dy = lastPoint.y - loc.y;
+        var dxp = dy * eraser / Math.sqrt(dx * dx + dy * dy),
+            dyp = - dx * eraser / Math.sqrt(dx * dx + dy * dy);
+        context.save();
+        context.beginPath();
+        context.strokeStyle = "rgba(0, 0, 0, 0)";
+        context.moveTo(lastPoint.x + dxp, lastPoint.y + dyp);
+        context.lineTo(loc.x + dxp, loc.y + dyp);
+        context.lineTo(loc.x - dxp, loc.y - dyp);
+        context.lineTo(lastPoint.x - dxp, lastPoint.y - dyp);
+        context.stroke();
+        context.clip();
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.restore();
+        lastPoint = loc;
+    }
     context.save();
     context.beginPath();
     context.arc(loc.x, loc.y, eraser, 0, Math.PI * 2, false);
@@ -232,8 +251,9 @@ function drawEraser(loc) {
 canvas.addEventListener("touchstart", function (e) {
     e.preventDefault();
     var loc = windowToCanvas(e);
-    dragging = true;
+    lastPoint = loc;
     drawEraser(loc);
+    dragging = true;
 })
 
 canvas.addEventListener("touchmove", function (e) {
