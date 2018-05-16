@@ -1,7 +1,8 @@
 window.history.replaceState({}, 0, "#page1"); //
 
 $(window).on("hashchange", (function () {
-    var load = [false, false], i, j;
+    var load = [false, false],
+        i, j;
     return function () {
         switch (window.location.hash) {
             case "#page1":
@@ -19,14 +20,10 @@ $(window).on("hashchange", (function () {
                 break;
             case "#page3":
                 if (!load[1]) {
-                    for (i in $(".img-page5-lazy")) {
-                        j = $(".img-page5-lazy").eq(i);
-                        j.attr("src", j.attr("src-lazy"));
-                    }
                     //$(".img-page5-lazy").attr("src", this.attr("src-lazy"));
                     $("#panel-5").css({
                         background: "url(res/page5/background.png)",
-                        backgroundSize: "cover",
+                        backgroundSize: "100% 100%",
                         backgroundPosition: "bottom"
                     });
                     load[1] = true;
@@ -69,74 +66,44 @@ function getQuestion(qtype) {
             $(".questions").remove(); //
             $("#change").remove(); //
             $(".question1").show();
-            var obj = JSON.parse(data);
-            var questions = obj["question"];
+            var obj = JSON.parse(data),
+                questions = obj["question"];
+
             if (obj["errcode"] == 0) {
                 window.location.hash = "#page3"; //
                 for (var i = 0; i <= 5; i++) {
                     var txt = questions[i].text;
-                    var div = $("<div></div>").text(txt);
-                    $(".question1").append(div);
-                    if (txt.length < 10) {
-                        var x1 = 12;
-                        var y1 = 20;
-                        var z1 = parseInt(Math.random() * (x1 - y1 + 1) + y1) + "px";
+                    var clicks = questions[i].click;
+                    var $div = $("<div></div>");
+                    $div.text(txt);
+                    $div.prepend('<img class="before" src="./res/page3/3.png" alt="">');
 
-                        var x2 = 25;
-                        var y2 = 30;
-                        var z2 = parseInt(Math.random() * (x2 - y2 + 1) + y2) + "vw";
+                    $(".question1").append($div);
 
-                        var x3 = 1;
-                        var y3 = 8;
-                        var z3 = parseInt(Math.random() * (x2 - y2 + 1) + y2) * 100;
-
-                        div.css({
-                            "font-size": z1,
-                            "margin-left": z2,
-                            "font-weight": z3,
-                            "width": "50vw"
+                    if (clicks <= 20) {
+                        $div.css({
+                            "font-weight": 100,
                         });
-                    } else if (txt.length < 15) {
-                        var x1 = 12;
-                        var y1 = 20;
-                        var z1 = parseInt(Math.random() * (x1 - y1 + 1) + y1) + "px";
-
-                        var x2 = 6;
-                        var y2 = 25;
-                        var z2 = parseInt(Math.random() * (x2 - y2 + 1) + y2) + "vw";
-
-                        var x3 = 1;
-                        var y3 = 8;
-                        var z3 = parseInt(Math.random() * (x2 - y2 + 1) + y2) * 100;
-
-                        div.css({
-                            "font-size": z1,
-                            "margin-left": z2,
-                            "font-weight": z3,
-                            "width": "60vw"
+                    } else if (clicks <= 100) {
+                        $div.css({
+                            "font-weight": 200,
+                        });
+                    } else if (clicks <= 500) {
+                        var z = clicks;
+                        $div.css({
+                            "font-weight": z,
+                        });
+                    } else if (clicks <= 1000) {
+                        $div.css({
+                            "font-weight": 600,
                         });
                     } else {
-                        var x1 = 12;
-                        var y1 = 20;
-                        var z1 = parseInt(Math.random() * (x1 - y1 + 1) + y1) + "px";
-
-                        var x2 = 8;
-                        var y2 = 9;
-                        var z2 = parseInt(Math.random() * (x2 - y2 + 1) + y2) + "vw";
-
-                        var x3 = 1;
-                        var y3 = 4;
-                        var z3 = parseInt(Math.random() * (x2 - y2 + 1) + y2) * 100;
-
-                        div.css({
-                            "font-size": z1,
-                            "margin-left": z2,
-                            "font-weight": z3,
-                            "width": "75vw"
+                        $div.css({
+                            "font-weight": 800,
                         });
                     }
 
-                    div.addClass("questions");
+                    $div.addClass("questions");
                 };
 
                 $(".question1").append('<div id="change"><img class="change" src="./res/page3/2.png" alt=""></div>');
@@ -168,7 +135,7 @@ function getQuestion(qtype) {
 }
 
 function getAnswer(id) {
-    context.drawImage(img, 25, 18, 279, 186);
+    context.drawImage(img, 18, 18, 286, 186);
     $(".satisfaction").fadeOut();
     if (id != 0) {
         $("#second").fadeOut(20, function () {
@@ -218,7 +185,7 @@ $("#yes").click(function () {
 })
 
 $("#no").click(function () {
-    context.drawImage(img, 25, 18, 279, 186);
+    context.drawImage(img, 18, 18, 286, 186);
     getAnswer(0);
     $("#first").fadeOut(20, function () {
         $("#second").fadeIn(200);
@@ -237,7 +204,7 @@ var dragging = false;
 
 window.onload = function () {
     context.save();
-    context.drawImage(img, 25, 18, 279, 186);
+    context.drawImage(img, 18, 18, 286, 186);
     context.beginPath();
     context.restore();
 }
@@ -263,12 +230,14 @@ function drawEraser(loc) {
 }
 
 canvas.addEventListener("touchstart", function (e) {
+    e.preventDefault();
     var loc = windowToCanvas(e);
     dragging = true;
     drawEraser(loc);
 })
 
 canvas.addEventListener("touchmove", function (e) {
+    e.preventDefault();
     var loc;
     if (dragging) {
         loc = windowToCanvas(e);
@@ -277,6 +246,7 @@ canvas.addEventListener("touchmove", function (e) {
 })
 
 canvas.addEventListener("touchend", function (e) {
+    e.preventDefault();
     dragging = false;
     $(".satisfaction").fadeIn();
 })

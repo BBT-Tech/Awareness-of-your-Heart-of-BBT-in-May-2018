@@ -120,7 +120,6 @@ body {
 }
 
 .panel{
-    background: -webkit-linear-gradient(#1addb1,#ffffff);
     overflow: hidden;
 }
 
@@ -155,51 +154,47 @@ body {
 }
 /* scroll */
 
-/* text */
-.text1 img{
-    margin-left: 10vw;
-    margin-top: 7vw; 
-    height: 5vw;
-}
-
-.text2 img{
-    margin-top: 7vw; 
-    height: 5vw;
-}
-
-.text3 img{
-    width: 85vw;
-    margin-left: 10vw;
-    margin-top: 7vw; 
-}
-/* text */
-
 /* panel1 */
+#panel-1{
+    background: url(../res/page1/1.png) no-repeat bottom;
+    background-size: 100% 100%;
+}
 
-.next1{
-    text-align: center;
+@keyframes arrow{
+    0%{
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+            transform: translateY(0);
+    }
+    50%{
+        -webkit-transform: translateY(-10%);
+        -ms-transform: translateY(-10%);
+            transform: translateY(-10%);
+    }
+    100%{
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+            transform: translateY(0);
+    }
 }
 
 #next1{
-    margin-top: 6vw; 
-    width: 40vw;
-}
-
-.bureau{
+    padding: 40vh 10vw 0 10vw;
     position: absolute;
     bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 10vw;
+    animation: arrow 2s infinite;
 }
 
-.bureau img{
-    width: 100vw;
-    display: block;
-    max-height: 65vh;
-}
+
 /* panel1 */
 
 /* panel2 */
 #panel-2{
-    background: url(../res/page2/background.jpg);
+    background: url(../res/page2/background.png);
     background-size: 100% 100%;
 }
 
@@ -210,6 +205,7 @@ body {
 .option img{
     width: 25vw;
     position: absolute;
+    padding-bottom: 75vh;
 }
 
 #option1{
@@ -232,10 +228,23 @@ body {
     background-position: bottom;
 }
 
-.head3 img{
-    margin-left: 10vw;
-    margin-top: 10vw; 
+.head3{
+    height: 10vw;
+}
+
+#head3{
+    background: url(../res/page3/1.png) no-repeat left;
+    background-size: auto 100%;
+    width: 75vw;
     height: 5vw;
+    margin: 0 auto 6vh 10vw;
+    position: relative;
+    top: 3vh;
+}
+
+.before{
+    width: 10px;
+    margin-right: 8px;
 }
 
 .question1{
@@ -243,12 +252,14 @@ body {
     background: url(../res/page3/paper.png) no-repeat;
     background-size: 100% 100%;
     width: 90vw;
-    height: 75vh;
+    height: 80vh;
     margin-left: 10vw;
 }
 
 .questions{
+    margin-left: 6vw;
     height: 10vh;
+    width: 75vw;
     display: block;
 }
 
@@ -270,9 +281,26 @@ body {
     background-position: bottom;
 }
 
+.text1 img{
+    margin-left: 10vw;
+    margin-top: 7vw; 
+    height: 5vw;
+}
+
+.text2 img{
+    margin-top: 7vw; 
+    height: 5vw;
+}
+
+.text3 img{
+    width: 85vw;
+    margin-left: 10vw;
+    margin-top: 7vw; 
+}
+
 .cover{
     position: absolute;
-    width: 330px;
+    width: 323px;
     height: 223px;
     top: 0;
     bottom: 0;
@@ -318,6 +346,11 @@ canvas{
 /* panel4 */
 
 /* panel5 */
-#panel-5{
+.text5{
+    background: url(../res/page5/1.png) no-repeat center;
+    background-size: contain;
+    width: 80vw;
+    height: 45vh;
+    margin: 8vh 10vw 0 10vw;
 }
 /* panel5 */
