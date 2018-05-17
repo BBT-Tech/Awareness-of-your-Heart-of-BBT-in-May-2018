@@ -67,14 +67,16 @@ function getQuestion(qtype) {
             $("#change").remove(); //
             $(".question1").show();
             var obj = JSON.parse(data),
-                questions = obj["question"];
+            questions = obj["question"],
+            ids = [];
 
             if (obj["errcode"] == 0) {
                 window.location.hash = "#page3"; //
                 for (var i = 0; i <= 5; i++) {
-                    var txt = questions[i].text;
-                    var clicks = questions[i].click;
-                    var $div = $("<div></div>");
+                    var txt = questions[i].text,
+                        clicks = questions[i].click,
+                        $div = $("<div></div>");
+                    ids[txt] = questions[i].id;
                     $div.text(txt);
                     $div.prepend('<img class="before" src="./res/page3/3.png" alt="">');
 
@@ -113,10 +115,10 @@ function getQuestion(qtype) {
                 });
 
                 $(".questions").click(function () {
-                    var id = questions[i].id;
                     window.location.hash = "#page4";
                     var selectValue = "";
                     selectValue = $(this).text();
+                    var id = ids[selectValue];
                     getAnswer(id);
                 });
             } else {
